@@ -8,10 +8,15 @@ numbers = list(string.digits)
 specialCharacters = list(string.punctuation)
 
 root = tk.Tk()
-root.geometry("500x500")
+root.geometry("400x400")
 
 label = tk.Label(text="Password generator")
 label.pack(side="top")
+
+sliderVal = tk.IntVar()
+
+slider = tk.Scale(from_=8, to=16, orient="horizontal", variable=sliderVal)
+slider.pack()
 
 val1 = tk.IntVar()
 val2 = tk.IntVar()
@@ -26,19 +31,24 @@ checkbox2.pack()
 checkbox3.pack()
 
 
-def generatePassword():
-    password = ""
-    alphabetArray = [abcLowercase]
-    passwordLength = random.randint(8, 16)
+def addTickedBoxes(standard):
 
     if val1.get() == 1:
-        alphabetArray.append(abcUppercase)
+        standard.append(abcUppercase)
 
     if val2.get() == 1:
-        alphabetArray.append(numbers)
+        standard.append(numbers)
 
     if val3.get() == 1:
-        alphabetArray.append(specialCharacters)
+        standard.append(specialCharacters)
+
+
+def generatePassword():
+
+    password = ""
+    alphabetArray = [abcLowercase]
+    addTickedBoxes(alphabetArray)
+    passwordLength = sliderVal.get()
 
     for i in range(passwordLength):
         alphabet = alphabetArray[random.randint(0, len(alphabetArray) - 1)]
